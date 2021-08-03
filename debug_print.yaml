@@ -1,0 +1,12 @@
+---
+- name: 
+  hosts: worker1.example.com
+  tasks: 
+  - name: 
+    debug: 
+      msg: >
+        The OS Architecture is "{{ansible_architecture}}"
+
+  - debug: msg="{{ansible_bios_date}}"
+  - debug: msg="{{ansible_cmdline.BOOT_IMAGE}}"
+  - debug: msg="{{ansible_default_ipv4.address}}"

@@ -1,0 +1,5 @@
+- name: Install Required Packages
+  yum:
+    name: "{{ pkg }}"
+    state: present
+

@@ -1,0 +1,17 @@
+---
+- name: Task with a local variable definition 
+  hosts: web_servers
+  gather_facts: False 
+  vars_files:
+    - packages.yml
+  tasks: 
+  - name: 
+    include_tasks: remove_pkg.yml
+    tags: 
+      - uninstall
+  - block: 
+    - name: 
+      include_tasks: install_pkg.yml 
+    tags: 
+      - install 
+  

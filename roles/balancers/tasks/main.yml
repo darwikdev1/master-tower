@@ -1,0 +1,30 @@
+---
+# tasks file for balancers
+- name: Installing HaProxy 
+  dnf: 
+    name: haproxy 
+    state: present
+- name: 
+  template: 
+    src: balancer.j2 
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 0664 
+  notify: 
+    - restart haproxy
+
+- name: 
+  service: 
+    name: "{{item}}"
+    state: started
+    enabled: true
+  with_items: 
+    - haproxy 
+
+- name: 
+  firewalld: 
+    service: http
+    immediate: true
+    permanent: true
+    state: enabled 

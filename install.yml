@@ -1,0 +1,25 @@
+---
+- name: deploy web server
+  hosts: web_servers
+  tasks:  
+  - name: installing apache on all servers
+    yum: 
+      name: httpd 
+      state: present
+  - name: adding index html 
+    copy: 
+      content: "apache is live on {{ansible_fqdn}}\n"
+      dest: /var/www/html/index.html 
+
+  - name: start and enable httpd service
+    service: 
+      name: httpd
+      state: restarted
+      enabled: true 
+  - name: Open Port httpd  
+    firewalld: 
+      service: http 
+      permanent: true 
+      immediate: true 
+      state: enabled
+...

@@ -1,0 +1,44 @@
+---
+- name: 
+  hosts: web_servers
+  vars: 
+    web_pkg: httpd
+    fw_pkg: firewalld
+    web_srv: httpd
+    fw_srv: firewalld
+    rule: http
+  tasks: 
+  - name: Installing the required packages 
+    dnf: 
+      name: 
+        - "{{web_pkg}}"
+        - "{{fw_pkg}}"
+      state: present
+
+  - name: start and enable httpd and firewalld service 
+    service: 
+      name: "{{item}}"
+      enabled: true
+      state: started
+    loop: 
+      - "{{fw_srv}}"
+      - "{{web_srv}}"
+
+  - name: create a web content to be served 
+    copy: 
+      content: "Hello World on {{ansible_fqdn}}"
+      dest: /var/www/html/index.html
+
+  - name: open port for {{rule}}
+    firewalld: 
+      service: "{{rule}}"
+      permanent: true
+      immediate: true 
+      state: enabled 
+- name: 
+  hosts: localhost
+  tasks: 
+  - name: Ensure the webserver is reahable 
+    uri: 
+      url: http://worker1.example.com
+      status_code: 200

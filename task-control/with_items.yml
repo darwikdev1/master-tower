@@ -1,0 +1,12 @@
+---
+- name: 
+  hosts: web_servers
+  tasks: 
+  - name: Installing Httpd 
+    yum: 
+      name: httpd 
+      state: latest
+  - name: Installing vsftpd 
+    yum: 
+      name: vsftpd 
+      state: latest 

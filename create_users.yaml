@@ -1,0 +1,11 @@
+---
+- name: Creating user 
+  hosts: web_servers
+  vars_files: 
+    - user.yaml 
+  tasks: 
+  - name: Create a new user on remote side 
+    user: 
+      name: "{{user}}" 
+      password: "{{ password| password_hash('sha512') }}"
+      update_password: on_create

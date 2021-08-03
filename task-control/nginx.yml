@@ -1,0 +1,5 @@
+---
+- name: 
+  hosts: web_servers 
+  roles: 
+    - geerlingguy.nginx

@@ -1,0 +1,5 @@
+pkg: 
+  - httpd
+  - vsftpd
+  - ftp 
+  - postfix 

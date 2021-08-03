@@ -1,0 +1,28 @@
+---
+- name:  
+  hosts: localhost
+  vars: 
+    my_list_a: ['Douglas','Marvin','Arthur']
+    my_list_b:
+      - Douglas
+      - Marvin
+      - Arthur 
+    my_list_c: { Douglas: Human, Marvin: Robot, Arthur: Human}
+    my_list_d: 
+      Douglas: Human 
+      Marvin: Robot
+      Arthur: Human 
+
+  tasks:
+  - name: using variable 
+    debug: 
+      var: my_list_a
+  - name: using msg
+    debug: 
+      msg: "{{my_list_b}}"
+  - name: using dictionary 
+    debug: 
+      msg: "{{my_list_d}}"
+...
+
+

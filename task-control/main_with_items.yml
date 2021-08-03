@@ -1,0 +1,17 @@
+---
+- name: 
+  hosts: web_servers
+  vars_files: 
+    - user.yml
+  tasks: 
+  - name: Installing ftp and httpd  packages 
+    group: 
+      name: "{{item.group}}"
+      state: latest
+    loop: "{{user}}"
+  - user: 
+      name: "{{item.name}}"
+      state: present
+    loop: "{{user}}"  
+
+  -  

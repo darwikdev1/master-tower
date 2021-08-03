@@ -1,0 +1,25 @@
+---
+- name: Installing requirement packages 
+  hosts: all
+  tasks: 
+  - name: Copying /etc/hosts file 
+    copy:
+      src: /etc/hosts
+      dest: /etc/hosts
+
+  - name: Creating yum repository on remote side 
+    yum_repository: 
+      name: "AppStream"
+      description: "App Manifest Red Hat Enterprise Linux 8.4"
+      enabled: true 
+      baseurl: http://master.example.com/content/AppStream
+      gpgcheck: false 
+
+  - name: Creating yum repository on remote side 
+    yum_repository: 
+      name: "BaseOS"
+      description: "BaseOS Manifest Red Hat Enterprise Linux 8.4"
+      enabled: true 
+      baseurl: http://master.example.com/content/BaseOS
+      gpgcheck: false 
+...

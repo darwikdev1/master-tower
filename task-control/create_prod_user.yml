@@ -1,0 +1,38 @@
+---
+- name: 
+  hosts: db_servers
+  vars_files: 
+    - user_vars.yml 
+    - user_list.yml 
+  tasks: 
+  - name: creating group named "Manager" 
+    group: 
+      name: manager
+      state: present 
+
+  - name: creating users
+    user: 
+      name: "{{item.name}}"
+      state: present 
+      groups: manager 
+      password: "{{ mgr_pass | password_hash('sha512') }}"
+    when: item.job == "mgr" 
+    loop: "{{user}}"
+- name: 
+  hosts: web_servers
+  vars_files: 
+    - user_list.yml 
+    - user_vars.yml 
+  tasks: 
+  - name: Creating group operation 
+    group: 
+      name: operation 
+      state: present
+  - name: creating user 
+    user: 
+      name: "{{item.name}}"
+      state: present 
+      password: "{{ dev_pass | password_hash('sha512') }}"
+      groups: operation
+    when: item.job == "dev"
+    loop: "{{user}}" 

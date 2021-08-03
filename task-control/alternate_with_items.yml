@@ -1,0 +1,11 @@
+---
+- name: 
+  hosts: web_servers
+  tasks: 
+  - name: Installing ftp and httpd  packages 
+    yum: 
+      name:
+        - httpd
+        - vsftpd
+        - ftp 
+      state: latest

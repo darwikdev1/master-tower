@@ -1,0 +1,8 @@
+- user:
+ name: "{{ item.name }}"
+ state: present
+ groups: "{{ item.groups }}"
+ with_items:
+ - { name: 'user1', groups: 'wheel' }
+ - { name: 'user2', groups: 'root' }
+
