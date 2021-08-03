@@ -1,6 +1,6 @@
 ---
 - name: deploy web server
-  hosts: web_servers
+  hosts: worker1.example.com
   tasks:  
   - name: installing apache on all servers
     yum: 
